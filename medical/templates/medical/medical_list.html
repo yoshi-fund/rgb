@@ -1,0 +1,31 @@
+{% extends 'medical/base.html' %}
+
+{% block content %}
+
+<a class="text-center" href="{% url 'medical:create' %}">新規作成</a>
+
+{% for medical in object_list %}
+
+    <div class="d-flex justify-content-center">
+        <!-- text-centerを追加 -->
+        <div class="card text-center" style="width: 23rem; margin-right: 1rem;">
+            {% if medical.image %}
+            <img src="{{ medical.image.url }}" alt="">
+            {% endif %}
+            <div class="card-body">
+                <!-- cart-headerに変更 -->
+                <h5 class="card-header border-primary"><a href="{% url 'medical:detail' medical.pk %}">{{medical.medical_title}}</a></h5> 
+                <p class="card-text">{{medical.get_industry_display}}</p>
+                <ul class="list-group list-group-flush"> 
+                    <li class="list-group-item">コンディション : {{medical.get_condition_display}}</li>
+                    <li class="list-group-item">{{medical.date}}</a></li>
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+    <hr>
+{% endfor %}
+
+
+{% endblock %}
